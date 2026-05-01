@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Fraunces:ital,wght@0,300;0,600;1,300&display=swap');
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:          #f0ede8;
+  --card:        #faf9f7;
+  --border:      #e4dfd8;
+  --ink:         #1c1917;
+  --ink-muted:   #78716c;
+  --accent:      #c2692a;
+  --accent-soft: #f5e9df;
+  --danger:      #b54040;
+  --danger-soft: #faeaea;
+  --done:        #3a7d5e;
+  --done-soft:   #e4f2eb;
+  --shadow-sm:   0 1px 3px rgba(28,25,23,.06), 0 1px 2px rgba(28,25,23,.04);
+  --shadow-md:   0 4px 16px rgba(28,25,23,.08), 0 1px 4px rgba(28,25,23,.05);
+  --shadow-lg:   0 12px 40px rgba(28,25,23,.12), 0 4px 12px rgba(28,25,23,.06);
+  --radius-sm:   8px;
+  --radius-md:   14px;
+  --radius-lg:   22px;
+  --transition:  all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(194,105,42,.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 90%, rgba(58,125,94,.08) 0%, transparent 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  padding: 2rem 1rem;
+}
+
+/* ── Card Container ── */
+.todo-List {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem 2rem;
+  box-shadow: var(--shadow-lg);
+  animation: slideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top accent stripe */
+.todo-List::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), #e8a06a, var(--done));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* ── Heading ── */
+.List {
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.List::after {
+  content: '';
+  display: block;
+  margin-top: 0.5rem;
+  width: 2rem;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ── Input Row ── */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  margin-bottom: 0.75rem;
+}
+
+.input::placeholder {
+  color: var(--ink-muted);
+  font-weight: 300;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(194,105,42,.15), var(--shadow-sm);
+  background: #fff;
+}
+
+/* ── Add Task Button ── */
+.addTask {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.72rem 1.4rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(194,105,42,.30);
+  transition: var(--transition);
+  letter-spacing: 0.01em;
+  margin-bottom: 1.75rem;
+}
+
+.addTask::before {
+  content: '+';
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.addTask:hover {
+  background: #a8561f;
+  box-shadow: 0 4px 14px rgba(194,105,42,.38);
+  transform: translateY(-1px);
+}
+
+.addTask:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(194,105,42,.25);
+}
+
+/* ── Todo List ── */
+.ul-List {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+/* ── Todo Item ── */
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  animation: fadeIn 0.28s ease both;
+}
+
+.todo:hover {
+  border-color: #d4cec7;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* ── Task Label ── */
+.task {
+  flex: 1;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* ── Done Button ── */
+.done {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.done:hover {
+  border-color: var(--done);
+  background: var(--done-soft);
+}
+
+.done:hover::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--done);
+  font-weight: 700;
+}
+.donebtn{
+  border-color: var(--done);
+  background: var(--done-soft);
+  font-size: 11px;
+  color: var(--done);
+  font-weight: 700;
+}
+.doneTask{
+  text-decoration-line: line-through;
+}
+.done:active {
+  transform: scale(0.9);
+}
+
+/* ── Delete Button ── */
+.del {
+  flex-shrink: 0;
+  padding: 0.3rem 0.7rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.01em;
+}
+
+.del:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  background: var(--danger-soft);
+  transform: scale(1.04);
+}
+
+.del:active {
+  transform: scale(0.97);
+}
+
+/* ── Empty State ── */
+.ul-List:empty::after {
+  content: 'No tasks yet — add one above ↑';
+  display: block;
+  text-align: center;
+  color: var(--ink-muted);
+  font-size: 0.88rem;
+  padding: 1.5rem 0;
+  font-style: italic;
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+}
+
+/* ── Animations ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .todo-List {
+    padding: 1.75rem 1.25rem 1.5rem;
+    border-radius: var(--radius-md);
+  }
+
+  .List {
+    font-size: 1.35rem;
+  }
+
+  .addTask {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .del {
+    padding: 0.28rem 0.55rem;
+    font-size: 0.75rem;
+  }
+}
